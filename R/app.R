@@ -71,7 +71,7 @@ runBCyto <- function() {
 #' @importFrom flowWorkspace pop.MFI
 #' @importFrom flowWorkspace recompute
 #' @importFrom flowWorkspace transformerList
-#' @importFrom fs path_home
+#' @importFrom fs path_wd
 #' @importFrom grDevices col2rgb
 #' @importFrom grDevices colorRampPalette
 #' @importFrom grDevices contourLines
@@ -5272,10 +5272,10 @@ server <- function(input, output, session) {
   })
 
   #File----
-  shinyFileChoose(input, "BCytoFileLoad", roots=c(Home= path_home()),
+  shinyFileChoose(input, "BCytoFileLoad", roots=c(Home= path_wd()),
                   session=session, restrictions=system.file(package="base"),
                   filetypes="RData")
-  shinyDirChoose(input, "directory", roots=c(Home= path_home()),
+  shinyDirChoose(input, "directory", roots=c(Home= path_wd()),
                  session=session, restrictions=system.file(package="base"),
                  allowDirCreate=FALSE, filetypes="fcs")
 
@@ -5287,7 +5287,7 @@ server <- function(input, output, session) {
 
   observeEvent(reactDir$d, {
     withProgress(message="Please wait...", detail="", value=0, max=100, {
-      pars <- c(Home= path_home(), "R Installation"=R.home(),
+      pars <- c(Home= path_wd(), "R Installation"=R.home(),
                 getVolumes())
       bc$tempFilePath <- parseDirPath(pars, reactDir$d)
       bc$tempFileList <- list.files(bc$tempFilePath, pattern=".fcs")
@@ -5549,7 +5549,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(reactBCytoFile$d, {
-    tempFilePath <- parseFilePaths(c(Home= path_home(),
+    tempFilePath <- parseFilePaths(c(Home= path_wd(),
                                      "R Installation"=R.home(),
                                      getVolumes()),
                                    reactBCytoFile$d)
