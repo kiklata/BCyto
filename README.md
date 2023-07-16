@@ -20,7 +20,7 @@ install.packages("devtools")
 #enabling donwload of BioConductor dependencies
 install.packages("BiocManager")
 #installing BCyto
-devtools::install_github("BonilhaCaio/BCyto")
+devtools::install_github("kiklata/BCyto")
 ```
 
 *Note: as Bioconductor currently does not support the Apple M1 (a.k.a.
